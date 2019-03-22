@@ -236,8 +236,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: Insert_sort<br>date: 2019-03-20 10:07:39<br>catrgories:Algorithm ranking<br>tags:</p>
+        <p>title: Insert_sort<br>date: 2019-03-20 10:07:39<br>catrgories:Algorithm ranking<br>tags:</p>
 <h2 id="description-直接插入排序算法的实现"><a href="#description-直接插入排序算法的实现" class="headerlink" title="description:直接插入排序算法的实现"></a>description:直接插入排序算法的实现</h2><p>直接插入排序是稳定的算法。</p>
 <ol>
 <li>直接插入排序的基本思想：<br>假设待排序的记录存放在数  组R[1…n]中。初始时，R[1]自成1个有序区，无序区为R[2…n]。<br>从i=2起至i=n为止，依次将R[i]插入当前的有序区R[1…i-1]中，生成含n个记录的有序区。<br>第i-1趟直接插入序列；<br>即可以理解为R被划分成两个子区间，已经排好序的R[1..i-1]与待排序区间R[i..n].<br>插入排序就是将待排序区间中的每个记录插入到有序区的合适位置，使R[1…i-1]变为新的有序区R[1…i].<br>可以理解为进行扑克游戏使，每位玩家整理手牌的过程。<br>2.排序方法：<br>（1）在当前有序区R[1…i-1]中查找R[i]的正确插入位置k（1&lt;=k&lt;=i-1).<br>(2) 将R[k…i-1]中的记录均后移一个位置，腾出k位置上的空间插入R[i].<br>这里我们将使用升序排序，也就是说，如果R[i]的关键字大于等于R[1..i-1]中所有记录的关键字，则R[i]就是插入的位置<br>   或者查找比较操作和记录移动操作交替的进行。<br> 实现：<br>#include<iostream><br>using namespace std;<br>//直接插入排序<br>void Insert_sort(int a[], int n)<br>{<br> int i, j, temp;<br> for (i = 1; i &lt; n; i++)//进行n-1次的选择<br> {<pre><code>temp = a[i];
