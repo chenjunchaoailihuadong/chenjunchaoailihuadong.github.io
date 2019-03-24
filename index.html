@@ -152,6 +152,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bin-search" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/24/bin-search/">bin_search</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/24/bin-search/" class="archive-article-date">
+  	<time datetime="2019-03-24T06:51:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>二分查找算法（折半算法）<br>二分查找就是将查找的键和子数组的中间键作比较，如果被查找的键小于中间键，就在左子数组继续查找；如果大于中间键，就在右子数组中查找，否则中间键就是要找的元素<br>一个简单地算法就是注意怎么实现就好了</p>
+<p>#include<iostream><br>using namespace std;<br>int  binsearch(int x, int a[], int n)<br>{<br>    int low = 0;<br>    int high = n - 1;<br>    int mid;<br>    while (low &lt;= high)<br>    {<br>        mid = low + (high - low) / 2;//如果写成low+high有可能有溢出的情况出现<br>        if(x ==a[mid])<br>        {<br>            return mid;</iostream></p>
+<pre><code>    }
+    if (x &gt; a[mid])
+    {
+        low= mid + 1;
+    }
+    else
+    {
+        high = mid - 1;
+    }
+}
+    return -1;
+</code></pre><p>}</p>
+<p>int main()<br>{<br>    int a[] = { 1,2,3,4,5,6,7,8,9 };<br>    int ret=binsearch(7, a, 9);<br>    if (ret == -1)<br>    {<br>        cout &lt;&lt; “can’t found it”;<br>    }<br>    else<br>    {<br>        cout &lt;&lt; ret &lt;&lt; endl;<br>    }<br>    system(“pause”);<br>    return 0;<br>}</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/24/bin-search/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Shell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
