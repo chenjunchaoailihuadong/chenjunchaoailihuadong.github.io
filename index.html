@@ -152,6 +152,72 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-LLVM初步认知" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/24/LLVM初步认知/">LLVM初步认知</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/24/LLVM初步认知/" class="archive-article-date">
+  	<time datetime="2019-03-24T07:48:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="初步认知"><a href="#初步认知" class="headerlink" title="初步认知"></a>初步认知</h2><h3 id="LLVM起源"><a href="#LLVM起源" class="headerlink" title="LLVM起源"></a>LLVM起源</h3><p>LLVM这个名字源于Lower Level Virtual Machine,但是这个项目不局限于创建一个虚拟机，它已经发展成为当今炙手可热的编译器基础框架。LLAM最初以C/C++为目标，近年来经过众多机构和开源社区的努力，LLVM已经能够成为ActionScript、D、Fortran、Haskell、Java、Object-C、Swift、Python、RUby、Scala等众多语言提供编译支持，而一些新兴语言则直接采用了LLVM作为后端。可以说，LLVM对编译器领域的发展起到了举足轻重的作用。</p>
+<h3 id="为什么要懂LLVM"><a href="#为什么要懂LLVM" class="headerlink" title="为什么要懂LLVM"></a>为什么要懂LLVM</h3><p>  利用LLVM，可以分析程序要多久一次来完成某项工作；<br>  改造程序，使其更适用你的系统；<br>  模拟一个新的处理器框架或者操作系统–只需稍加改动，而不需要自己少个芯片；<br>  写个内核；<br>  了解一个程序，了解一个编译器框架会让你受益良多；<br>  LLVM—–</p>
+<p>###LLVM 模块化设计实例<br>  $cat testfile.ll<br>  define i32 @test1(i32 %A){<br>  %B=add i32 %A, 0<br>  ret i32 %B<br>}<br>  define internal i32 @test(i32 %X,i32 %dead){<br>  ret i32 %x<br>}<br>  define i32 @caller (){<br>  %A=call i32 @test(i32 123,i32 456)<br>  ret i32 %A<br>}<br>  $opt -s -instcombine testfile.ll -0 outpu1.ll<br>  $cat output1.ll<br>  ;ModuleID=’testfile.ll’<br>  define i32 @test1(i32 %A){<br>  ret i32 %A<br>}<br>  define internal i32 @test(i32 %X,i32 %dead)<br>  {<br>      ret i32 %x<br>  }<br>  define i32 @caller(){<br>  %A=call i32 @test(i32 123,i32 456)<br>  ret i32 %A<br>}<br>  $opt -s -deadargelim testfile.ll -o outpur2.ll<br>  $cat output2.ll<br>  ;ModuleID = testfile.ll’<br>  define i32 @test1(i32 %A){<br>  %B=add i32 %A,0<br>  ret i32 %B<br>}<br>  define internal i32 @test(i32 %X){<br>  ret i32 %X<br>}<br>  define i32 @caller(){<br>  %A=call i32 @test(i32 123)<br>  ret i32 %A<br>}<br>需要安装LLVM工具链（特别是opt工具）在linux系统下执行（不是llvm只能于linux下执行，只针对上述代码，主要区分GCC的不同）</p>
+<p>###工作原理<br>在前面的代码里，我们可以看到，第一个命令会运行instcombine Pass，随即将指令合并，因此前面B的部分会被优化为ret i32 %A，并且没有改变原来的代码，而是产生了新的代码。<br>第二个命令则运行deadargelim Pass，对第一个函数未产生影响，但是优化了第二个函数所有影响的前部分未修改的代码，无用单参数被消除掉了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/24/LLVM初步认知/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-bin-search" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

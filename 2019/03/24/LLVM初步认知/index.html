@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>LLVM初步认知 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="初步认知LLVM起源LLVM这个名字源于Lower Level Virtual Machine,但是这个项目不局限于创建一个虚拟机，它已经发展成为当今炙手可热的编译器基础框架。LLAM最初以C/C++为目标，近年来经过众多机构和开源社区的努力，LLVM已经能够成为ActionScript、D、Fortran、Haskell、Java、Object-C、Swift、Python、RUby、Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLVM初步认知">
+<meta property="og:url" content="http://yoursite.com/2019/03/24/LLVM初步认知/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="初步认知LLVM起源LLVM这个名字源于Lower Level Virtual Machine,但是这个项目不局限于创建一个虚拟机，它已经发展成为当今炙手可热的编译器基础框架。LLAM最初以C/C++为目标，近年来经过众多机构和开源社区的努力，LLVM已经能够成为ActionScript、D、Fortran、Haskell、Java、Object-C、Swift、Python、RUby、Scala">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-24T08:28:41.711Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="LLVM初步认知">
+<meta name="twitter:description" content="初步认知LLVM起源LLVM这个名字源于Lower Level Virtual Machine,但是这个项目不局限于创建一个虚拟机，它已经发展成为当今炙手可热的编译器基础框架。LLAM最初以C/C++为目标，近年来经过众多机构和开源社区的努力，LLVM已经能够成为ActionScript、D、Fortran、Haskell、Java、Object-C、Swift、Python、RUby、Scala">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,211 +154,159 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-LLVM初步认知" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      LLVM初步认知
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/24/LLVM初步认知/" class="archive-article-date">
+
+        
+        <a href="/2019/03/24/LLVM初步认知/" class="archive-article-date">
   	<time datetime="2019-03-24T07:48:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/24/LLVM初步认知/">LLVM初步认知</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="初步认知"><a href="#初步认知" class="headerlink" title="初步认知"></a>初步认知</h2><h3 id="LLVM起源"><a href="#LLVM起源" class="headerlink" title="LLVM起源"></a>LLVM起源</h3><p>LLVM这个名字源于Lower Level Virtual Machine,但是这个项目不局限于创建一个虚拟机，它已经发展成为当今炙手可热的编译器基础框架。LLAM最初以C/C++为目标，近年来经过众多机构和开源社区的努力，LLVM已经能够成为ActionScript、D、Fortran、Haskell、Java、Object-C、Swift、Python、RUby、Scala等众多语言提供编译支持，而一些新兴语言则直接采用了LLVM作为后端。可以说，LLVM对编译器领域的发展起到了举足轻重的作用。</p>
+<h3 id="为什么要懂LLVM"><a href="#为什么要懂LLVM" class="headerlink" title="为什么要懂LLVM"></a>为什么要懂LLVM</h3><p>  利用LLVM，可以分析程序要多久一次来完成某项工作；<br>  改造程序，使其更适用你的系统；<br>  模拟一个新的处理器框架或者操作系统–只需稍加改动，而不需要自己少个芯片；<br>  写个内核；<br>  了解一个程序，了解一个编译器框架会让你受益良多；<br>  LLVM—–</p>
+<p>###LLVM 模块化设计实例<br>  $cat testfile.ll<br>  define i32 @test1(i32 %A){<br>  %B=add i32 %A, 0<br>  ret i32 %B<br>}<br>  define internal i32 @test(i32 %X,i32 %dead){<br>  ret i32 %x<br>}<br>  define i32 @caller (){<br>  %A=call i32 @test(i32 123,i32 456)<br>  ret i32 %A<br>}<br>  $opt -s -instcombine testfile.ll -0 outpu1.ll<br>  $cat output1.ll<br>  ;ModuleID=’testfile.ll’<br>  define i32 @test1(i32 %A){<br>  ret i32 %A<br>}<br>  define internal i32 @test(i32 %X,i32 %dead)<br>  {<br>      ret i32 %x<br>  }<br>  define i32 @caller(){<br>  %A=call i32 @test(i32 123,i32 456)<br>  ret i32 %A<br>}<br>  $opt -s -deadargelim testfile.ll -o outpur2.ll<br>  $cat output2.ll<br>  ;ModuleID = testfile.ll’<br>  define i32 @test1(i32 %A){<br>  %B=add i32 %A,0<br>  ret i32 %B<br>}<br>  define internal i32 @test(i32 %X){<br>  ret i32 %X<br>}<br>  define i32 @caller(){<br>  %A=call i32 @test(i32 123)<br>  ret i32 %A<br>}<br>需要安装LLVM工具链（特别是opt工具）在linux系统下执行（不是llvm只能于linux下执行，只针对上述代码，主要区分GCC的不同）</p>
+<p>###工作原理<br>在前面的代码里，我们可以看到，第一个命令会运行instcombine Pass，随即将指令合并，因此前面B的部分会被优化为ret i32 %A，并且没有改变原来的代码，而是产生了新的代码。<br>第二个命令则运行deadargelim Pass，对第一个函数未产生影响，但是优化了第二个函数所有影响的前部分未修改的代码，无用单参数被消除掉了。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/24/LLVM初步认知/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/24/bin-search/" class="archive-article-date">
-  	<time datetime="2019-03-24T06:51:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/24/bin-search/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">bin_search</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/24/bin-search/">bin_search</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/22/Shell/" class="archive-article-date">
-  	<time datetime="2019-03-22T09:24:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/22/Shell/">Insert-sort_Shell</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/21/Insert-sort-0/" class="archive-article-date">
-  	<time datetime="2019-03-21T14:42:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/21/Insert-sort-0/">Insert_sort</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/18/TEST/" class="archive-article-date">
-  	<time datetime="2019-03-18T14:29:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/18/TEST/">TEST</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/18/FZC-first-blog/" class="archive-article-date">
-  	<time datetime="2019-03-18T14:05:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/18/FZC-first-blog/">FZC_first-blog</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/18/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-18T13:14:54.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -377,8 +329,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
